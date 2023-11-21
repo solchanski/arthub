@@ -17,7 +17,7 @@ class AccountPageState extends State<AccountPage> {
 
     await FirebaseAuth.instance.signOut();
 
-    navigator.pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    navigator.pushNamedAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
   }
 
   @override

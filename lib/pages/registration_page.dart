@@ -74,7 +74,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       }
     }
 
-    navigator.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    navigator.pushNamedAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
   }
 
   @override

@@ -62,7 +62,7 @@ class LoginPageState extends State<LoginPage> {
       }
     }
 
-    navigator.pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    navigator.pushNamedAndRemoveUntil(Routes.home, (Route<dynamic> route) => false);
   }
 
   @override

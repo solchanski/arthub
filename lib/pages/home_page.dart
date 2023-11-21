@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:arthub/config/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:arthub/config/routes.dart';
 import 'package:arthub/pages/account_page.dart';
 import 'package:arthub/pages/login_page.dart';
 

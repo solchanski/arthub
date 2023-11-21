@@ -59,7 +59,7 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
 
     scaffoldMassager.showSnackBar(snackBar);
 
-    navigator.pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    navigator.pushNamedAndRemoveUntil(Routes.login, (Route<dynamic> route) => false);
   }
 
   @override
