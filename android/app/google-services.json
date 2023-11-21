@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788591527272",
+    "project_id": "arthub-70906",
+    "storage_bucket": "arthub-70906.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788591527272:android:6c61d8671f69aa70ac02dd",
+        "android_client_info": {
+          "package_name": "com.example.arthub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABMv8exRb2QsuDTC3bqF3bo0Usz-cq1uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

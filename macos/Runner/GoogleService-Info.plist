@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBt69i4WhQ7VT683GPA9SXJhF6LE-MG4FQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>788591527272</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.arthub.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>arthub-70906</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arthub-70906.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:788591527272:ios:ade4ac18591006f0ac02dd</string>
+</dict>
+</plist>
