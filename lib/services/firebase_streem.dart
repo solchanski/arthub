@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:arthub/pages/home_page.dart';
-import 'package:arthub/pages/verify_email_page.dart';
+import 'package:arthub/pages/auth/verify_email_page.dart';
 
 class FirebaseStream extends StatelessWidget {
   const FirebaseStream({super.key});

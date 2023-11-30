@@ -1,24 +1,57 @@
-import 'package:arthub/utils/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:arthub/config/routes.dart';
-import 'package:arthub/pages/account/account_page.dart';
-import 'package:arthub/pages/auth/login_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:arthub/utils/colors.dart';
+import 'package:arthub/utils/global_variable.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MobileScreenLayout extends StatefulWidget {
+  const MobileScreenLayout({Key? key}) : super(key: key);
+
+  @override
+  State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
+}
+
+class _MobileScreenLayoutState extends State<MobileScreenLayout> {
+  int _page = 0;
+  late PageController pageController; // for tabs animation
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      _page = page;
+    });
+  }
+
+  void navigationTapped(int page) {
+    //Animating Page
+    pageController.jumpToPage(page);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: homeScreenItems,
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: Color(0xff050C16),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        items: [
+        items:[
           BottomNavigationBarItem(
               icon: IconButton(
                 onPressed: () => Navigator.of(context).pushNamed(Routes.search),
@@ -32,7 +65,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pushNamed(Routes.messages),
                 icon:Icon(Icons.message_outlined),
                 iconSize: 24,
-                color: primaryColor,
+                color: Colors.white,
               ),
               label: 'message'),
           BottomNavigationBarItem(
@@ -53,7 +86,7 @@ class HomePage extends StatelessWidget {
               icon: Icon(
                 Icons.notifications_on_outlined,
                 size: 24,
-                color: primaryColor,
+                color: Colors.white,
               ),
               label: 'notification'),
           BottomNavigationBarItem(
@@ -65,39 +98,9 @@ class HomePage extends StatelessWidget {
               ),
               label: 'profile'),
         ],
+        onTap: navigationTapped,
+        currentIndex: _page,
       ),
     );
   }
 }
-
-//     return Scaffold(
-//       resizeToAvoidBottomInset: false,
-//       appBar: AppBar(
-//         title: const Text('Главная страница'),
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               if ((user == null)) {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (context) => const LoginPage()),
-//                 );
-//               } else {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) => const AccountPage()),
-//                 );
-//               }
-//             },
-//             icon: Icon(
-//               Icons.person,
-//               color: (user == null) ? Colors.white : Colors.yellow,
-//             ),
-//           ),
-//         ],
-//       ),
-     
-//     );
-//   }
-// }
