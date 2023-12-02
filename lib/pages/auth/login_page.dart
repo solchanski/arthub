@@ -1,3 +1,5 @@
+import 'package:arthub/models/user.dart';
+import 'package:arthub/providers/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +9,7 @@ import 'package:arthub/pages/auth/registration_page.dart';
 import 'package:arthub/utils/colors.dart';
 import 'package:arthub/utils/global_variable.dart';
 import 'package:arthub/utils/utils.dart';
-import 'package:arthub/pages/widgets/text_field_input.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == 'success') {
+      // context.read<UserProvider>().user = User(username: null, uid: uid, photoUrl: photoUrl, email: email, bio: bio, followers: followers, following: following)
       if (context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -93,20 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                  ),
               ),
-              // TextFieldInput(
-              //   hintText: 'E-mail',
-              //   textInputType: TextInputType.emailAddress,
-              //   textEditingController: _emailController,
-              // ),
               const SizedBox(
                 height: 15,
               ),
-              // TextFieldInput(
-              //   hintText: 'Пароль',
-              //   textInputType: TextInputType.text,
-              //   textEditingController: _passwordController,
-              //   isPass: true, 
-              // ),
               TextFormField(
                 autocorrect: false,
                 controller: _passwordController,
@@ -134,9 +126,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                 ),
               ),
-              // const SizedBox(
-              //   height: 5,
-              // ),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -156,13 +145,13 @@ class _LoginPageState extends State<LoginPage> {
               InkWell(
                 onTap: loginUser,
                 child: Container(
-                  height: 50,
+                  height: 60,
                   width: 135,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     color: blueColor,
                   ),
@@ -171,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                           'ВОЙТИ',
                           style: TextStyle(
                           color: primaryColor,
+                          fontWeight: FontWeight.bold,
                           ),
                         )
                       : const CircularProgressIndicator(

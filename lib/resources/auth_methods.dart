@@ -1,8 +1,6 @@
-// import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:arthub/models/user.dart' as model;
-// import 'package:arthub/resources/storage_methods.dart';
 
 class AuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -19,13 +17,12 @@ class AuthMethods {
   }
 
   // Signing Up User
-
   Future<String> signUpUser({
     required String email,
     required String password,
     required String username,
   }) async {
-    String res = "Some error Occurred";
+    String res = "Обнаружены ошибки";
     try {
       if (email.isNotEmpty ||
           password.isNotEmpty ||
@@ -58,7 +55,7 @@ class AuthMethods {
 
         res = "success";
       } else {
-        res = "Please enter all the fields";
+        res = "Заполните все поля";
       }
     } catch (err) {
       return err.toString();
@@ -71,7 +68,7 @@ class AuthMethods {
     required String email,
     required String password,
   }) async {
-    String res = "Some error Occurred";
+    String res = "Обнаружены ошибки";
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
         // logging in user with email and password
@@ -80,8 +77,9 @@ class AuthMethods {
           password: password,
         );
         res = "success";
+        
       } else {
-        res = "Please enter all the fields";
+        res = "Заполните все поля";
       }
     } catch (err) {
       return err.toString();

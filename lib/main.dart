@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Instagram Clone',
+        title: 'ARTHUB',
         routes: Routes.pages,
-        theme: ThemeData(scaffoldBackgroundColor: Color(0xff050C16),),
+        theme: ThemeData(scaffoldBackgroundColor: mobileBackgroundColor,),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

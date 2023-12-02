@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:arthub/services/snack_bar.dart';
+import 'package:arthub/utils/snack_bar.dart';
 import 'package:arthub/config/routes.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -105,7 +105,8 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
                 child: Text(
                   'СБРОСИТЬ ПАРОЛЬ',
                   style: TextStyle(
-                  color: Colors.white,
+                   color: Colors.white,
+                   fontWeight: FontWeight.bold,
                   ),
                  ),
                 ),

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +8,6 @@ import 'package:arthub/responsive/mobile_screen_layout.dart';
 import 'package:arthub/pages/auth/login_page.dart';
 import 'package:arthub/utils/colors.dart';
 import 'package:arthub/utils/utils.dart';
-import 'package:arthub/pages/widgets/text_field_input.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -20,8 +20,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _passwordTextRepeatInputController = TextEditingController();
+
   bool _isLoading = false;
+  bool isHiddenPassword = true;
   // Uint8List? _image;
 
   @override
@@ -30,6 +32,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _usernameController.dispose();
+    _passwordTextRepeatInputController.dispose();
+  }
+
+  void togglePasswordView() {
+    setState(() {
+      isHiddenPassword = !isHiddenPassword;
+    });
   }
 
   void signUpUser() async {
@@ -82,93 +91,129 @@ class _RegistrationPageState extends State<RegistrationPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/background_reg.png'),
+          fit: BoxFit.cover)),
+          padding: EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Flexible(
-              //   flex: 2,
-              //   child: Container(),
-              // ),
-              // const SizedBox(
-              //   height: 64,
-              // ),
-              // Stack(
-              //   children: [
-              //     _image != null
-              //         ? CircleAvatar(
-              //             radius: 64,
-              //             backgroundImage: MemoryImage(_image!),
-              //             backgroundColor: Colors.red,
-              //           )
-              //         : const CircleAvatar(
-              //             radius: 64,
-              //             backgroundImage: NetworkImage(
-              //                 'https://i.stack.imgur.com/l60Hf.png'),
-              //             backgroundColor: Colors.red,
-              //           ),
-              //     Positioned(
-              //       bottom: -10,
-              //       left: 80,
-              //       child: IconButton(
-              //         onPressed: selectImage,
-              //         icon: const Icon(Icons.add_a_photo),
-              //       ),
-              //     )
-              //   ],
-              // ),
-              // const SizedBox(
-              //   height: 24,
-              // ),
-              TextFieldInput(
-                hintText: 'Enter your username',
-                textInputType: TextInputType.text,
-                textEditingController: _usernameController,
+              Spacer(),
+              TextFormField(
+                keyboardType: TextInputType.text,
+                autocorrect: false,
+                controller: _usernameController,
+                decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Имя пользователя',
+                    border: UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))
+                    ),
+                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 15,
               ),
-              TextFieldInput(
-                hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                controller: _emailController,
+                validator: (email) =>
+                    email != null && !EmailValidator.validate(email)
+                        ? 'Введите правильный Email'
+                        : null,
+                decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'E-mail',
+                    border: UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))
+                    ),
+                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 15,
               ),
-              TextFieldInput(
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                textEditingController: _passwordController,
-                isPass: true,
+              TextFormField(
+                autocorrect: false,
+                controller: _passwordController,
+                obscureText: isHiddenPassword,
+                validator: (value) => value != null && value.length < 6
+                    ? 'Минимум 6 символов'
+                    : null,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Пароль',
+                  border: UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))
+                  ),
+                  suffixIcon: IconButton(
+                                icon: Icon(isHiddenPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: () {
+                                  setState(() {
+                                    isHiddenPassword = !isHiddenPassword;
+                                  });
+                                },
+                              ),
+                ),
               ),
               const SizedBox(
-                height: 24,
+                height: 15,
               ),
-              // TextFieldInput(
-              //   hintText: 'Enter your bio',
-              //   textInputType: TextInputType.text,
-              //   textEditingController: _bioController,
-              // ),
+              TextFormField(
+                autocorrect: false,
+                controller: _passwordTextRepeatInputController,
+                obscureText: isHiddenPassword,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) => value != null && value.length < 6
+                    ? 'Минимум 6 символов'
+                    : null,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'Повторите пароль',
+                  border: UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))
+                  ),
+                  suffixIcon: IconButton(
+                                icon: Icon(isHiddenPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: () {
+                                  setState(() {
+                                    isHiddenPassword = !isHiddenPassword;
+                                  });
+                                },
+                              ),
+                ),
+              ),              
               const SizedBox(
-                height: 24,
+                height: 40,
               ),
               InkWell(
                 onTap: signUpUser,
                 child: Container(
-                  width: double.infinity,
+                  height: 60,
+                  width: 220,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    color: blueColor,
+                    color: orangeColor,
                   ),
                   child: !_isLoading
                       ? const Text(
-                          'Sign up',
+                          'СОЗДАТЬ АККАУНТ',
+                          style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                          ),
                         )
                       : const CircularProgressIndicator(
                           color: primaryColor,
@@ -176,11 +221,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               const SizedBox(
-                height: 12,
-              ),
-              Flexible(
-                flex: 2,
-                child: Container(),
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -188,7 +229,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: const Text(
-                      'Already have an account?',
+                      'Уже есть аккаунт? ',
                       style: TextStyle(
                        color: Colors.white,),
                     ),
@@ -202,16 +243,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: const Text(
-                        ' Login.',
+                        'Войти',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
+              Spacer(),
             ],
           ),
         ),

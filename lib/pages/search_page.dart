@@ -1,10 +1,8 @@
-import 'package:arthub/pages/account/account_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:arthub/utils/colors.dart';
-import 'package:arthub/utils/global_variable.dart';
-import 'package:arthub/pages/widgets/post_cart.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:arthub/pages/account/account_page.dart';
+import 'package:arthub/utils/colors.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -21,12 +19,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: primaryColor,
+        bottomOpacity: 0,
         title: Form(
           child: TextFormField(
             controller: searchController,
             decoration:
-                const InputDecoration(labelText: 'Search for a user...'),
+                const InputDecoration(labelText: 'Поиск пользователя'),
             onFieldSubmitted: (String _) {
               setState(() {
                 isShowUsers = true;

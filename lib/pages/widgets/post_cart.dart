@@ -28,6 +28,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   void initState() {
+    context.read<UserProvider>().refreshUser();
     super.initState();
     fetchCommentLen();
   }
@@ -39,6 +40,7 @@ class _PostCardState extends State<PostCard> {
           .doc(widget.snap['postId'])
           .collection('comments')
           .get();
+          
       commentLen = snap.docs.length;
     } catch (err) {
       showSnackBar(
@@ -63,7 +65,6 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final model.User user = Provider.of<UserProvider>(context).getUser;
-    final width = MediaQuery.of(context).size.width;
 
     return Container(
       // boundary needed for web

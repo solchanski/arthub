@@ -74,8 +74,10 @@ class _AccountPageState extends State<AccountPage> {
         : Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
+              bottomOpacity: 0,
               title: Text(
                 userData['username'],
+                style: TextStyle(color: primaryColor),
               ),
               centerTitle: false,
             ),
@@ -188,6 +190,7 @@ class _AccountPageState extends State<AccountPage> {
                           userData['username'],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: primaryColor,
                           ),
                         ),
                       ),
@@ -198,6 +201,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         child: Text(
                           userData['bio'],
+                          style: TextStyle(color: Colors.white) ,
                         ),
                       ),
                     ],
@@ -255,6 +259,7 @@ class _AccountPageState extends State<AccountPage> {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: primaryColor,
           ),
         ),
         Container(

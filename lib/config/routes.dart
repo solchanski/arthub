@@ -5,6 +5,7 @@ import 'package:arthub/pages/auth/registration_page.dart';
 import 'package:arthub/pages/auth/reset_password_page.dart';
 import 'package:arthub/pages/auth/verify_email_page.dart';
 import 'package:arthub/pages/comments_page.dart';
+import 'package:arthub/pages/feed_page.dart';
 import 'package:arthub/pages/home_page.dart';
 import 'package:arthub/pages/search_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,7 @@ class Routes{
     comments:(context) => CommentsPage(postId: 1,),
     // notifications:(context) =>NotificationsPage(),
     search:(context) => SearchPage(),
+    feed:(context) => FeedPage(),
     };
 
 
@@ -44,4 +46,5 @@ class Routes{
     static const comments="/comments";
     static const notifications="/notifications";
     static const search="/search";
+    static const feed="/feed";
 }

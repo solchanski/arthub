@@ -54,20 +54,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         items:[
           BottomNavigationBarItem(
               icon: IconButton(
+                onPressed: () => Navigator.of(context).pushNamed(Routes.feed),
+                icon:Icon(Icons.home),
+                iconSize: 24,
+                color: primaryColor,
+              ),
+              label: 'feed'),
+          BottomNavigationBarItem(
+              icon: IconButton(
                 onPressed: () => Navigator.of(context).pushNamed(Routes.search),
                 icon:Icon(Icons.search),
                 iconSize: 24,
                 color: primaryColor,
               ),
               label: 'search'),
-          BottomNavigationBarItem(
-              icon: IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(Routes.messages),
-                icon:Icon(Icons.message_outlined),
-                iconSize: 24,
-                color: Colors.white,
-              ),
-              label: 'message'),
           BottomNavigationBarItem(
               icon: Stack(
                 children: [ Container(height: 50, width: 50
