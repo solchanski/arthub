@@ -51,6 +51,7 @@ class FireStoreMethods {
     } catch (err) {
       res = err.toString();
     }
+      print(res);
     return res;
   }
 

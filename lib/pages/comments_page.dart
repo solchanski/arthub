@@ -52,7 +52,7 @@ class _CommentsPageState extends State<CommentsPage> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: const Text(
-          'Comments',
+          'Комментарии',
         ),
         centerTitle: false,
       ),
@@ -95,9 +95,11 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16, right: 8),
                   child: TextField(
+                    style: TextStyle(color: primaryColor),
                     controller: commentEditingController,
                     decoration: InputDecoration(
-                      hintText: 'Comment as ${user.username}',
+                      hintText: 'Добавьте комментарий...',
+                      hintStyle: TextStyle(color: primaryColor),
                       border: InputBorder.none,
                     ),
                   ),
@@ -113,8 +115,8 @@ class _CommentsPageState extends State<CommentsPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                   child: const Text(
-                    'Post',
-                    style: TextStyle(color: Colors.blue),
+                    'Поделиться',
+                    style: TextStyle(color: orangeColor),
                   ),
                 ),
               )

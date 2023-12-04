@@ -25,11 +25,11 @@ class _AddPostPageState extends State<AddPostPage> {
       context: parentContext,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Create a Post'),
+          title: const Text('Опубликовать пост',),
           children: <Widget>[
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Take a photo'),
+                child: const Text('Сфотографировать'),
                 onPressed: () async {
                   Navigator.pop(context);
                   Uint8List file = await pickImage(ImageSource.camera);
@@ -39,7 +39,7 @@ class _AddPostPageState extends State<AddPostPage> {
                 }),
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Choose from Gallery'),
+                child: const Text('Выбрать из галереи'),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Uint8List file = await pickImage(ImageSource.gallery);
@@ -49,7 +49,7 @@ class _AddPostPageState extends State<AddPostPage> {
                 }),
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
-              child: const Text("Cancel"),
+              child: const Text("Закрыть"),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -122,6 +122,7 @@ class _AddPostPageState extends State<AddPostPage> {
             child: IconButton(
               icon: const Icon(
                 Icons.upload,
+                color: primaryColor,
               ),
               onPressed: () => _selectImage(context),
             ),
@@ -134,7 +135,8 @@ class _AddPostPageState extends State<AddPostPage> {
                 onPressed: clearImage,
               ),
               title: const Text(
-                'Post to',
+                'Новая публикация',
+                style: TextStyle(color: primaryColor),
               ),
               centerTitle: false,
               actions: <Widget>[
@@ -145,9 +147,9 @@ class _AddPostPageState extends State<AddPostPage> {
                     userProvider.getUser.photoUrl,
                   ),
                   child: const Text(
-                    "Post",
+                    "Поделиться",
                     style: TextStyle(
-                        color: Colors.blueAccent,
+                        color: orangeColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0),
                   ),
@@ -171,11 +173,13 @@ class _AddPostPageState extends State<AddPostPage> {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: TextField(
+                        style: TextStyle(color: primaryColor),
                         controller: _descriptionController,
                         decoration: const InputDecoration(
-                            hintText: "Write a caption...",
+                            hintText: "Добавьте подпись...",
+                            hintStyle: TextStyle(color: primaryColor),
                             border: InputBorder.none),
                         maxLines: 8,
                       ),

@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   void loginUser() async {
     setState(() {
       _isLoading = true;
+      context.read<UserProvider>().refreshUser();
     });
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);

@@ -1,3 +1,4 @@
+import 'package:arthub/pages/post_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -15,6 +16,7 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController searchController = TextEditingController();
   bool isShowUsers = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +26,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Form(
           child: TextFormField(
             controller: searchController,
-            decoration:
-                const InputDecoration(labelText: 'Поиск пользователя'),
+            decoration: const InputDecoration(labelText: 'Поиск пользователя'),
             onFieldSubmitted: (String _) {
               setState(() {
                 isShowUsers = true;
@@ -69,6 +70,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         title: Text(
                           (snapshot.data! as dynamic).docs[index]['username'],
+                          style: TextStyle(color: primaryColor),
                         ),
                       ),
                     );
@@ -88,15 +90,36 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 }
 
-                return MasonryGridView.count(
-                  crossAxisCount: 3,
-                  itemCount: (snapshot.data! as dynamic).docs.length,
-                  itemBuilder: (context, index) => Image.network(
-                    (snapshot.data! as dynamic).docs[index]['postUrl'],
-                    fit: BoxFit.cover,
+                return GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: (snapshot.data! as dynamic).docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 1.5,
+                        childAspectRatio: 1,
+                      ),
+                      itemBuilder: (context, index) => GestureDetector(
+                    // onTap: () => Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => PostPage(
+                    //       snap: snap.data!.docs[index].data(),
+                    //     ),
+                    //   ),
+                    // ),
+                    onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AccountPage(
+                            uid: (snapshot.data! as dynamic).docs[index]['uid'],
+                          ),
+                        ),
+                      ),
+                    child: Image.network(
+                      (snapshot.data! as dynamic).docs[index]['postUrl'],
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  mainAxisSpacing: 8.0,
-                  crossAxisSpacing: 8.0,
                 );
               },
             ),

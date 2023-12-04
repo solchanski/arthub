@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:arthub/providers/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:arthub/responsive/mobile_screen_layout.dart';
 import 'package:arthub/pages/auth/login_page.dart';
 import 'package:arthub/utils/colors.dart';
 import 'package:arthub/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -163,39 +165,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               const SizedBox(
                 height: 15,
-              ),
-              TextFormField(
-                autocorrect: false,
-                controller: _passwordTextRepeatInputController,
-                obscureText: isHiddenPassword,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) => value != null && value.length < 6
-                    ? 'Минимум 6 символов'
-                    : null,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Повторите пароль',
-                  border: UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25))
-                  ),
-                  suffixIcon: IconButton(
-                                icon: Icon(isHiddenPassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                                onPressed: () {
-                                  setState(() {
-                                    isHiddenPassword = !isHiddenPassword;
-                                  });
-                                },
-                              ),
-                ),
-              ),              
+              ),     
               const SizedBox(
                 height: 40,
               ),
               InkWell(
-                onTap: signUpUser,
+                onTap: () => {signUpUser(),
+                context.read<UserProvider>().refreshUser()},
                 child: Container(
                   height: 60,
                   width: 220,

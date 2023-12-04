@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:arthub/utils/colors.dart';
 import 'package:arthub/utils/global_variable.dart';
-import 'package:arthub/pages/widgets/post_cart.dart';
+import 'package:arthub/pages/widgets/post_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class FeedPage extends StatefulWidget {
@@ -21,20 +21,9 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: mobileBackgroundColor,
         bottomOpacity: 0,
-        title: Form(
-          child: TextFormField(
-            controller: searchController,
-            decoration:
-                const InputDecoration(labelText: 'Поиск пользователя'),
-            onFieldSubmitted: (String _) {
-              setState(() {
-                isShowUsers = true;
-              });
-            },
-          ),
-        ),
+        toolbarHeight: 0,
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),

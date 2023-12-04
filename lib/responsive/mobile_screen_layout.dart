@@ -51,50 +51,56 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        items:[
+        items: [
           BottomNavigationBarItem(
               icon: IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(Routes.feed),
-                icon:Icon(Icons.home),
+                onPressed: () => navigationTapped(0),
+                icon: Icon(Icons.home),
                 iconSize: 24,
-                color: primaryColor,
+                color: _page == 0 ? primaryColor : secondaryColor,
               ),
               label: 'feed'),
           BottomNavigationBarItem(
               icon: IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(Routes.search),
-                icon:Icon(Icons.search),
+                onPressed: () => navigationTapped(1),
+                icon: Icon(Icons.search),
                 iconSize: 24,
-                color: primaryColor,
+                color: _page == 1 ? primaryColor : secondaryColor,
               ),
               label: 'search'),
           BottomNavigationBarItem(
-              icon: Stack(
-                children: [ Container(height: 50, width: 50
-                ,decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(50)), color: Color(0xff514FFF),),),
-                Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: Icon(
-                    Icons.add,
-                    size: 24,
+              icon: Stack(children: [
+                Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: _page == 2 ? orangeColor : blueColor),
+                ),
+                Container(
+                  child: IconButton(
+                    onPressed: () => navigationTapped(2),
+                    icon: Icon(Icons.add),
+                    iconSize: 24,
                     color: primaryColor,
                   ),
-                ),]
-              ),
+                ),
+              ]),
               label: 'add'),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications_on_outlined,
-                size: 24,
-                color: Colors.white,
+              icon: IconButton(
+                onPressed: () => navigationTapped(3),
+                icon: Icon(Icons.notifications_on_outlined),
+                iconSize: 24,
+                color: _page == 3 ? primaryColor : secondaryColor,
               ),
               label: 'notification'),
           BottomNavigationBarItem(
               icon: IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(Routes.account),
-                icon:Icon(Icons.person_sharp),
+                onPressed: () => navigationTapped(4),
+                icon: Icon(Icons.person_sharp),
                 iconSize: 24,
-                color: primaryColor,
+                color: _page == 4 ? primaryColor : secondaryColor,
               ),
               label: 'profile'),
         ],
