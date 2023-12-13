@@ -73,8 +73,10 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/background_log.png'),
-          fit: BoxFit.cover)),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background_log.png'),
+                  fit: BoxFit.cover)),
           padding: EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,13 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                         ? 'Введите правильный Email'
                         : null,
                 decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'E-mail',
-                    border: UnderlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25))
-                    ),
-                 ),
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: 'E-mail',
+                  border: UnderlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -113,18 +114,17 @@ class _LoginPageState extends State<LoginPage> {
                   filled: true,
                   hintText: 'Пароль',
                   border: UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25))
-                  ),
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
                   suffixIcon: IconButton(
-                                icon: Icon(isHiddenPassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                                onPressed: () {
-                                  setState(() {
-                                    isHiddenPassword = !isHiddenPassword;
-                                  });
-                                },
-                              ),
+                    icon: Icon(isHiddenPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        isHiddenPassword = !isHiddenPassword;
+                      });
+                    },
+                  ),
                 ),
               ),
               Align(
@@ -132,11 +132,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed('/reset_password'),
-                  child: const Text('Забыли пароль?',
+                  child: const Text(
+                    'Забыли пароль?',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline),
                   ),
                 ),
               ),
@@ -144,7 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                 height: 10,
               ),
               InkWell(
-                onTap: loginUser,
+                onTap: ()  {
+                  loginUser();
+                   context.read<UserProvider>().refreshUser();
+                },
                 child: Container(
                   height: 60,
                   width: 135,
@@ -160,8 +164,8 @@ class _LoginPageState extends State<LoginPage> {
                       ? const Text(
                           'ВОЙТИ',
                           style: TextStyle(
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         )
                       : const CircularProgressIndicator(
@@ -180,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                       'Нет аккаунта? ',
                       style: TextStyle(
                         color: primaryColor,
-                        ),
+                      ),
                     ),
                   ),
                   GestureDetector(
@@ -200,7 +204,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  
                 ],
               ),
               Spacer(),

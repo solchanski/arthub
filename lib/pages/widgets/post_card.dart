@@ -29,7 +29,6 @@ class _PostCardState extends State<PostCard> {
 
   @override
   void initState() {
-    context.read<UserProvider>().refreshUser();
     super.initState();
     fetchCommentLen();
   }
@@ -68,7 +67,7 @@ class _PostCardState extends State<PostCard> {
     final model.User user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       // boundary needed for web
       decoration: BoxDecoration(
         color: mobileBackgroundColor,
@@ -79,7 +78,7 @@ class _PostCardState extends State<PostCard> {
           // HEADER SECTION OF THE POST
           Container(
             padding: const EdgeInsets.only(
-              bottom: 12,
+              bottom: 12, left: 10, right: 10,
             ).copyWith(right: 0),
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
@@ -275,6 +274,7 @@ class _PostCardState extends State<PostCard> {
           ),
           //DESCRIPTION AND NUMBER OF COMMENTS
           Container(
+            padding: EdgeInsets.symmetric(horizontal:10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

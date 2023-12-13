@@ -1,3 +1,5 @@
+import 'package:arthub/config/routes.dart';
+import 'package:arthub/pages/users_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +28,11 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
+    print('init acc');
     super.initState();
-    getData();
+    setState(() {
+      getData();
+    });
   }
 
   getData() async {
@@ -39,11 +44,11 @@ class _AccountPageState extends State<AccountPage> {
           .collection('users')
           .doc(widget.uid)
           .get();
-
+      print(userSnap.data()!.toString());
       // get post lENGTH
       var postSnap = await FirebaseFirestore.instance
           .collection('posts')
-          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('uid', isEqualTo: widget.uid)
           .get();
 
       postLen = postSnap.docs.length;
@@ -79,6 +84,7 @@ class _AccountPageState extends State<AccountPage> {
                 userData['username'],
                 style: TextStyle(color: primaryColor),
               ),
+              actions: FirebaseAuth.instance.currentUser!.uid == widget.uid ?[IconButton(onPressed: ()=>Navigator.of(context).pushNamed(Routes.edit_page), icon: Icon(Icons.settings, size: 16,))]:[],
               centerTitle: false,
             ),
             body: ListView(
@@ -105,9 +111,30 @@ class _AccountPageState extends State<AccountPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    buildStatColumn(postLen, "posts"),
-                                    buildStatColumn(followers, "followers"),
-                                    buildStatColumn(following, "following"),
+                                    buildStatColumn(postLen, "посты"),
+                                    GestureDetector(
+                                      child: buildStatColumn(
+                                          followers, "подписчики"),
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => UsersList(
+                                            uid: widget.uid,
+                                            types: 'followers',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        child: buildStatColumn(
+                                            following, "подписки"),
+                                        onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => UsersList(
+                                            uid: widget.uid,
+                                            types: 'following',
+                                          ),
+                                        ),
+                                      ),),
                                   ],
                                 ),
                                 Row(
@@ -117,11 +144,11 @@ class _AccountPageState extends State<AccountPage> {
                                     FirebaseAuth.instance.currentUser!.uid ==
                                             widget.uid
                                         ? FollowButton(
-                                            text: 'Sign Out',
+                                            text: 'Выйти',
                                             backgroundColor:
                                                 mobileBackgroundColor,
                                             textColor: primaryColor,
-                                            borderColor: Colors.grey,
+                                            borderColor: primaryColor,
                                             function: () async {
                                               await AuthMethods().signOut();
                                               if (context.mounted) {
@@ -137,13 +164,13 @@ class _AccountPageState extends State<AccountPage> {
                                           )
                                         : isFollowing
                                             ? FollowButton(
-                                                text: 'Unfollow',
-                                                backgroundColor: Colors.white,
-                                                textColor: Colors.black,
-                                                borderColor: Colors.grey,
-                                                function: () async {
-                                                  await FireStoreMethods()
-                                                      .followUser(
+                                                text: 'Отписаться',
+                                                backgroundColor:
+                                                    mobileBackgroundColor,
+                                                textColor: primaryColor,
+                                                borderColor: primaryColor,
+                                                function: () {
+                                                  FireStoreMethods().followUser(
                                                     FirebaseAuth.instance
                                                         .currentUser!.uid,
                                                     userData['uid'],
@@ -156,13 +183,12 @@ class _AccountPageState extends State<AccountPage> {
                                                 },
                                               )
                                             : FollowButton(
-                                                text: 'Follow',
-                                                backgroundColor: Colors.blue,
-                                                textColor: Colors.white,
-                                                borderColor: Colors.blue,
-                                                function: () async {
-                                                  await FireStoreMethods()
-                                                      .followUser(
+                                                text: 'Подписаться',
+                                                backgroundColor: blueColor,
+                                                textColor: primaryColor,
+                                                borderColor: blueColor,
+                                                function: () {
+                                                  FireStoreMethods().followUser(
                                                     FirebaseAuth.instance
                                                         .currentUser!.uid,
                                                     userData['uid'],
@@ -201,13 +227,12 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         child: Text(
                           userData['bio'],
-                          style: TextStyle(color: Colors.white) ,
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(),
                 FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection('posts')

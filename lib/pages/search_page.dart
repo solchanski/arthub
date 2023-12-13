@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
                   .collection('users')
                   .where(
                     'username',
-                    isGreaterThanOrEqualTo: searchController.text,
+                    isEqualTo: searchController.text,
                   )
                   .get(),
               builder: (context, snapshot) {
@@ -64,9 +64,9 @@ class _SearchPageState extends State<SearchPage> {
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(
-                            (snapshot.data! as dynamic).docs[index]['photoUrl'],
+                            (snapshot.data! as dynamic).docs[index]['photoUrl'] ,
                           ),
-                          radius: 16,
+                          radius: 20,
                         ),
                         title: Text(
                           (snapshot.data! as dynamic).docs[index]['username'],

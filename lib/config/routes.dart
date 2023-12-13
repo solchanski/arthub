@@ -1,4 +1,5 @@
 import 'package:arthub/pages/account/account_page.dart';
+import 'package:arthub/pages/account/edit_page.dart';
 import 'package:arthub/pages/add_post_page.dart';
 import 'package:arthub/pages/auth/login_page.dart';
 import 'package:arthub/pages/auth/registration_page.dart';
@@ -8,6 +9,7 @@ import 'package:arthub/pages/comments_page.dart';
 import 'package:arthub/pages/feed_page.dart';
 import 'package:arthub/pages/home_page.dart';
 import 'package:arthub/pages/search_page.dart';
+import 'package:arthub/pages/users_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Routes{
@@ -17,7 +19,7 @@ class Routes{
     verify_email:(context) => VerifyEmailPage(), 
     reset_password:(context) => ResetPasswordPage(),
     account:(context) => AccountPage(uid: FirebaseAuth.instance.currentUser!.uid,),
-    // edit_page:(context) => EditPage(),
+    edit_page:(context) => EditPage(),
     // all_chats:(context) => AllChatPage(),
     // messages:(context) => MessagesPage(),
     home:(context) => HomePage(),
@@ -26,6 +28,7 @@ class Routes{
     // notifications:(context) =>NotificationsPage(),
     search:(context) => SearchPage(),
     feed:(context) => FeedPage(),
+    users_list:(context) => UsersList(),
     };
 
 
@@ -47,4 +50,5 @@ class Routes{
     static const notifications="/notifications";
     static const search="/search";
     static const feed="/feed";
+    static const users_list="/users_list";
 }

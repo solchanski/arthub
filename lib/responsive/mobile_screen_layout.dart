@@ -90,7 +90,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           BottomNavigationBarItem(
               icon: IconButton(
                 onPressed: () => navigationTapped(3),
-                icon: Icon(Icons.notifications_on_outlined),
+                icon: Icon(Icons.chat_bubble_outline_rounded),
                 iconSize: 24,
                 color: _page == 3 ? primaryColor : secondaryColor,
               ),
